@@ -13,7 +13,9 @@ public class AccData {
     public AccData() {
         this(0, 0, 0,0);
     }
-
+    public AccData(int x, int y, int z) {
+        this(0,x,y,z);
+    }
     public AccData(int e,int x, int y, int z) {
         this.e = e;
         this.x = x;

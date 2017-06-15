@@ -62,7 +62,7 @@ public class ECGActivity extends BleProfileActivity implements ECGManagerCallbac
     private ImageView mImgHrsConnect; // hand connect state
 
     private final static int QueueSize = 1000;
-    private AccData[] mHrmQueue = new AccData[QueueSize];
+    private int[] mHrmQueue = new int[QueueSize];
 
     private int mHrmQueueCounter = 0;
 
@@ -92,7 +92,7 @@ public class ECGActivity extends BleProfileActivity implements ECGManagerCallbac
         pipeline.init(250, 5);
 
         for (int i = 0; i < 4; i++)
-            enQueue(new AccData());
+            enQueue(0);
 
         frame = parser.getFrame();
         _checkPermission();
@@ -512,14 +512,14 @@ public class ECGActivity extends BleProfileActivity implements ECGManagerCallbac
 //            }
 
             //
-            if (fetchCount == 0) return;
-            for (int i = 0; i < 55; i++) {
+//            if (fetchCount == 0) return;
+            for (int i = 0; i < 35; i++) {
                 if (isEmptyQueue()) break;
-                AccData val = deQueue();
-                if (val == null) break;
+                int val = deQueue();
+                if (val == -1) break;
 
 //                data.addEntry(new Entry(nXBufferSize, val), 0);
-                set.addEntry(new Entry(nXBufferSize, val.e));
+                set.addEntry(new Entry(nXBufferSize, val));
 //                setX.addEntry(new Entry(nXBufferSize, val.x));
 //                setY.addEntry(new Entry(nXBufferSize, val.y));
 //                setZ.addEntry(new Entry(nXBufferSize, val.z));
@@ -527,7 +527,7 @@ public class ECGActivity extends BleProfileActivity implements ECGManagerCallbac
 
                 // analysis af while hand connected.
 
-//                AlgoProcess(val.e);
+                AlgoProcess(val);
 //                if(captureFile != null){
 //                    captureFile.Write(val.e);
 //                }
@@ -728,26 +728,26 @@ public class ECGActivity extends BleProfileActivity implements ECGManagerCallbac
 
     @Override
     public void onHRValueReceived(final BluetoothDevice device, int ecgVal, boolean isSensorDetected) {
-//        hrNumber++;
-//        if (hrReceive == -1) hrReceive = System.currentTimeMillis();
-//        long ellipse = System.currentTimeMillis() - hrReceive;
-//        if (ellipse > 1000) {
-//            hrReceive = System.currentTimeMillis();
-//            Log.d("hrRec", "" + hrNumber);
-//
-//            hrQueue[hrIndex] = hrNumber;
-//            hrIndex++;
-//            hrIndex = hrIndex % hrMAX;
-//            if (firstHRSize < hrMAX) firstHRSize++;
-//
-//            hrNumber = 0;
-//        }
-//        isConnect = isSensorDetected;
-//        setDeviceConnectStateOnView();
-//        if (ecgVal >= Math.pow(2, 15)) {
-//            return;
-//        }
-//        enQueue(ecgVal);
+        hrNumber++;
+        if (hrReceive == -1) hrReceive = System.currentTimeMillis();
+        long ellipse = System.currentTimeMillis() - hrReceive;
+        if (ellipse > 1000) {
+            hrReceive = System.currentTimeMillis();
+            Log.d("hrRec", "" + hrNumber);
+
+            hrQueue[hrIndex] = hrNumber;
+            hrIndex++;
+            hrIndex = hrIndex % hrMAX;
+            if (firstHRSize < hrMAX) firstHRSize++;
+
+            hrNumber = 0;
+        }
+        isConnect = isSensorDetected;
+        setDeviceConnectStateOnView();
+        if (ecgVal >= Math.pow(2, 15)) {
+            return;
+        }
+        enQueue(ecgVal);
     }
 
     public int inCounter = 300;
@@ -812,26 +812,26 @@ public class ECGActivity extends BleProfileActivity implements ECGManagerCallbac
     @Override
     public void onAccDataReceived(AccData data, boolean isSensorDeteted) {
         setAccDataOnView(data);
-        hrNumber++;
-        if (hrReceive == -1) hrReceive = System.currentTimeMillis();
-        long ellipse = System.currentTimeMillis() - hrReceive;
-        if (ellipse > 1000) {
-            hrReceive = System.currentTimeMillis();
-            Log.d("hrRec", "" + hrNumber);
-
-            hrQueue[hrIndex] = hrNumber;
-            hrIndex++;
-            hrIndex = hrIndex % hrMAX;
-            if (firstHRSize < hrMAX) firstHRSize++;
-
-            hrNumber = 0;
-        }
-        isConnect = isSensorDeteted;
-        setDeviceConnectStateOnView();
-        if (data.e >= Math.pow(2, 15)) {
-            return;
-        }
-        enQueue(data);
+//        hrNumber++;
+//        if (hrReceive == -1) hrReceive = System.currentTimeMillis();
+//        long ellipse = System.currentTimeMillis() - hrReceive;
+//        if (ellipse > 1000) {
+//            hrReceive = System.currentTimeMillis();
+//            Log.d("hrRec", "" + hrNumber);
+//
+//            hrQueue[hrIndex] = hrNumber;
+//            hrIndex++;
+//            hrIndex = hrIndex % hrMAX;
+//            if (firstHRSize < hrMAX) firstHRSize++;
+//
+//            hrNumber = 0;
+//        }
+//        isConnect = isSensorDeteted;
+//        setDeviceConnectStateOnView();
+//        if (data.e >= Math.pow(2, 15)) {
+//            return;
+//        }
+////        enQueue(data);
     }
 
     private void setAccDataOnView(final AccData data) {
@@ -905,7 +905,7 @@ public class ECGActivity extends BleProfileActivity implements ECGManagerCallbac
     }
 
     // BEGIN management Queue
-    private AccData enQueue(AccData value) {
+    private int enQueue(int value) {
         if (isFullQueue()) {
             System.arraycopy(mHrmQueue, 1, mHrmQueue, 0, mHrmQueueCounter - 1);
             mHrmQueueCounter--;
@@ -920,106 +920,106 @@ public class ECGActivity extends BleProfileActivity implements ECGManagerCallbac
     }
 
 
-    private AccData deQueue() {
-        if (isEmptyQueue()) return null;
-        AccData result = mHrmQueue[4];
+    private int deQueue() {
+        if (isEmptyQueue()) return -1;
+        int result = mHrmQueue[4];
         System.arraycopy(mHrmQueue, 1, mHrmQueue, 0, mHrmQueueCounter - 1);
         mHrmQueueCounter--;
         return result;
     }
-
-    private AccData deQueue(int count) {
-        if (count == 0 || this.mHrmQueue.length < count) {
-            return null;
-        }
-
-        int derivationE[] = new int[count];
-        int derivationX[] = new int[count];
-        int derivationY[] = new int[count];
-        int derivationZ[] = new int[count];
-
-        for (int i = 0; i < count; i++) {
-            if (i == 0) {
-                derivationE[i] = this.mHrmQueue[i + 1].e - this.mHrmQueue[i].e;
-
-                derivationX[i] = this.mHrmQueue[i + 1].x - this.mHrmQueue[i].x;
-                derivationY[i] = this.mHrmQueue[i + 1].y - this.mHrmQueue[i].y;
-                derivationZ[i] = this.mHrmQueue[i + 1].z - this.mHrmQueue[i].z;
-            } else if (i == count - 1) {
-                if (this.mHrmQueue.length > count) {
-                    derivationE[i] = this.mHrmQueue[i + 1].e - 2 * this.mHrmQueue[i].e + this.mHrmQueue[i - 1].e;
-
-                    derivationX[i] = this.mHrmQueue[i + 1].x - 2 * this.mHrmQueue[i].x + this.mHrmQueue[i - 1].x;
-                    derivationY[i] = this.mHrmQueue[i + 1].y - 2 * this.mHrmQueue[i].y + this.mHrmQueue[i - 1].y;
-                    derivationZ[i] = this.mHrmQueue[i + 1].z - 2 * this.mHrmQueue[i].z + this.mHrmQueue[i - 1].z;
-                } else {
-                    derivationE[i] = -this.mHrmQueue[i].e + this.mHrmQueue[i - 1].e;
-
-                    derivationX[i] = -this.mHrmQueue[i].x + this.mHrmQueue[i - 1].x;
-                    derivationY[i] = -this.mHrmQueue[i].y + this.mHrmQueue[i - 1].y;
-                    derivationZ[i] = -this.mHrmQueue[i].z + this.mHrmQueue[i - 1].z;
-
-                }
-            } else {
-                derivationE[i] = this.mHrmQueue[i + 1].e - 2 * this.mHrmQueue[i].e + this.mHrmQueue[i - 1].e;
-
-                derivationX[i] = this.mHrmQueue[i + 1].x - 2 * this.mHrmQueue[i].x + this.mHrmQueue[i - 1].x;
-                derivationY[i] = this.mHrmQueue[i + 1].y - 2 * this.mHrmQueue[i].y + this.mHrmQueue[i - 1].y;
-                derivationZ[i] = this.mHrmQueue[i + 1].z - 2 * this.mHrmQueue[i].z + this.mHrmQueue[i - 1].z;
-            }
-            derivationE[i] = Math.abs(derivationE[i]);
-            derivationX[i] = Math.abs(derivationX[i]);
-            derivationY[i] = Math.abs(derivationY[i]);
-            derivationZ[i] = Math.abs(derivationZ[i]);
-        }
-        int peakIndexE = 0;
-        int peakValE = derivationE[0];
-
-        int peakIndexX = 0;
-        int peakValX = derivationX[0];
-
-        int peakIndexY = 0;
-        int peakValY = derivationY[0];
-
-        int peakIndexZ = 0;
-        int peakValZ = derivationZ[0];
-
-        for (int i = 1; i < count; i++) {
-            if (derivationE[i] > peakValE) {
-                peakValE = derivationE[i];
-                peakIndexE = i;
-            }
-        }
-        for (int i = 1; i < count; i++) {
-            if (derivationX[i] > peakValX) {
-                peakValX = derivationX[i];
-                peakIndexX = i;
-            }
-        }
-
-        for (int i = 1; i < count; i++) {
-            if (derivationY[i] > peakValY) {
-                peakValY = derivationY[i];
-                peakIndexY = i;
-            }
-        }
-        for (int i = 1; i < count; i++) {
-            if (derivationZ[i] > peakValZ) {
-                peakValZ = derivationZ[i];
-                peakIndexZ = i;
-            }
-        }
-
-        int rstE = this.mHrmQueue[peakIndexE].e;
-        int rstX = this.mHrmQueue[peakIndexX].x;
-        int rstY = this.mHrmQueue[peakIndexY].y;
-        int rstZ = this.mHrmQueue[peakIndexZ].z;
-
-        System.arraycopy(mHrmQueue, count, mHrmQueue, 0, mHrmQueueCounter - count);
-        mHrmQueueCounter = mHrmQueueCounter - count;
-
-        return new AccData(rstE, rstX, rstY, rstZ);
-    }
+//
+//    private AccData deQueue(int count) {
+//        if (count == 0 || this.mHrmQueue.length < count) {
+//            return null;
+//        }
+//
+//        int derivationE[] = new int[count];
+//        int derivationX[] = new int[count];
+//        int derivationY[] = new int[count];
+//        int derivationZ[] = new int[count];
+//
+//        for (int i = 0; i < count; i++) {
+//            if (i == 0) {
+//                derivationE[i] = this.mHrmQueue[i + 1].e - this.mHrmQueue[i].e;
+//
+//                derivationX[i] = this.mHrmQueue[i + 1].x - this.mHrmQueue[i].x;
+//                derivationY[i] = this.mHrmQueue[i + 1].y - this.mHrmQueue[i].y;
+//                derivationZ[i] = this.mHrmQueue[i + 1].z - this.mHrmQueue[i].z;
+//            } else if (i == count - 1) {
+//                if (this.mHrmQueue.length > count) {
+//                    derivationE[i] = this.mHrmQueue[i + 1].e - 2 * this.mHrmQueue[i].e + this.mHrmQueue[i - 1].e;
+//
+//                    derivationX[i] = this.mHrmQueue[i + 1].x - 2 * this.mHrmQueue[i].x + this.mHrmQueue[i - 1].x;
+//                    derivationY[i] = this.mHrmQueue[i + 1].y - 2 * this.mHrmQueue[i].y + this.mHrmQueue[i - 1].y;
+//                    derivationZ[i] = this.mHrmQueue[i + 1].z - 2 * this.mHrmQueue[i].z + this.mHrmQueue[i - 1].z;
+//                } else {
+//                    derivationE[i] = -this.mHrmQueue[i].e + this.mHrmQueue[i - 1].e;
+//
+//                    derivationX[i] = -this.mHrmQueue[i].x + this.mHrmQueue[i - 1].x;
+//                    derivationY[i] = -this.mHrmQueue[i].y + this.mHrmQueue[i - 1].y;
+//                    derivationZ[i] = -this.mHrmQueue[i].z + this.mHrmQueue[i - 1].z;
+//
+//                }
+//            } else {
+//                derivationE[i] = this.mHrmQueue[i + 1].e - 2 * this.mHrmQueue[i].e + this.mHrmQueue[i - 1].e;
+//
+//                derivationX[i] = this.mHrmQueue[i + 1].x - 2 * this.mHrmQueue[i].x + this.mHrmQueue[i - 1].x;
+//                derivationY[i] = this.mHrmQueue[i + 1].y - 2 * this.mHrmQueue[i].y + this.mHrmQueue[i - 1].y;
+//                derivationZ[i] = this.mHrmQueue[i + 1].z - 2 * this.mHrmQueue[i].z + this.mHrmQueue[i - 1].z;
+//            }
+//            derivationE[i] = Math.abs(derivationE[i]);
+//            derivationX[i] = Math.abs(derivationX[i]);
+//            derivationY[i] = Math.abs(derivationY[i]);
+//            derivationZ[i] = Math.abs(derivationZ[i]);
+//        }
+//        int peakIndexE = 0;
+//        int peakValE = derivationE[0];
+//
+//        int peakIndexX = 0;
+//        int peakValX = derivationX[0];
+//
+//        int peakIndexY = 0;
+//        int peakValY = derivationY[0];
+//
+//        int peakIndexZ = 0;
+//        int peakValZ = derivationZ[0];
+//
+//        for (int i = 1; i < count; i++) {
+//            if (derivationE[i] > peakValE) {
+//                peakValE = derivationE[i];
+//                peakIndexE = i;
+//            }
+//        }
+//        for (int i = 1; i < count; i++) {
+//            if (derivationX[i] > peakValX) {
+//                peakValX = derivationX[i];
+//                peakIndexX = i;
+//            }
+//        }
+//
+//        for (int i = 1; i < count; i++) {
+//            if (derivationY[i] > peakValY) {
+//                peakValY = derivationY[i];
+//                peakIndexY = i;
+//            }
+//        }
+//        for (int i = 1; i < count; i++) {
+//            if (derivationZ[i] > peakValZ) {
+//                peakValZ = derivationZ[i];
+//                peakIndexZ = i;
+//            }
+//        }
+//
+//        int rstE = this.mHrmQueue[peakIndexE].e;
+//        int rstX = this.mHrmQueue[peakIndexX].x;
+//        int rstY = this.mHrmQueue[peakIndexY].y;
+//        int rstZ = this.mHrmQueue[peakIndexZ].z;
+//
+//        System.arraycopy(mHrmQueue, count, mHrmQueue, 0, mHrmQueueCounter - count);
+//        mHrmQueueCounter = mHrmQueueCounter - count;
+//
+//        return new AccData(rstE, rstX, rstY, rstZ);
+//    }
 
     private boolean isFullQueue() {
         return mHrmQueueCounter == QueueSize;
