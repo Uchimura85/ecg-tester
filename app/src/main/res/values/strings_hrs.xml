@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resources>
+    <string name="hrs_feature_title">ECG</string>
+    
+    <string name="hrs_feature_title_long">HEART RATE MONITOR</string>
+    <dimen name="hrs_feature_title_long_margin">-152dp</dimen>
+    
+    <string name="hrs_default_name">Not Connected</string>
+    <string name="hrs_value_unit">bpm</string>
+    <string name="hrs_position_label">sensor position</string>
+    
+    <string-array name="hrs_locations">
+        <item>Other</item>
+        <item>Chest</item>
+        <item>Wrist</item>
+        <item>Finger</item>
+        <item>Hand</item>
+        <item>Ear Lobe</item>
+        <item>Foot</item>
+    </string-array>
+    <string name="hrs_location_other">Reserved</string>
+    
+    <string name="hrs_about_text">ECG (Electrocardiogram) profile allows you to connect to your ECG sensor (f.e. a belt).
+        It shows you the current rate, location of the sensor and a historic data on the graph.</string>
+</resources>

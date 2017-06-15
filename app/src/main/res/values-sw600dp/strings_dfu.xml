@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resources>
+    <string name="dfu_feature_title_long">DEVICE FIRMWARE UPDATE</string>
+    <dimen name="dfu_feature_title_long_margin">-186dp</dimen>
+</resources>

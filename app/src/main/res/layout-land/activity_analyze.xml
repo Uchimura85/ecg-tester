@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ecg.android.tool.ecg.AnalyzeActivity"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/feature_horizontal_margin"
+        android:layout_marginRight="@dimen/feature_horizontal_margin"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp">
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_marginEnd="170dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+        <RelativeLayout
+
+            android:layout_height="match_parent"
+            android:layout_width="170dp"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true">
+        <Button
+            android:id="@+id/loadButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/anim_button"
+            android:text="Load"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false"
+            android:textStyle="normal|bold"
+            android:layout_alignParentBottom="true"/>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp">
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextAF"
+                    android:entries="@array/planets_array"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:maxWidth="60dp"
+                    android:minWidth="60dp"
+                    android:layout_marginTop="18dp"
+                    android:textColor="@android:color/background_dark"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="AF"
+                    android:id="@+id/textViewFile"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="64dp" >
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextStart"
+                    android:text="0"
+                    android:inputType="number"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp"
+                    android:textAlignment="center"
+                    android:editable="false"
+                    android:enabled="false"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Start"
+                    android:id="@+id/textViewStart"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="124dp" >
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextEnd"
+                    android:text="0"
+                    android:inputType="number"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp"
+                    android:textAlignment="center"
+                    android:editable="false"
+                    android:enabled="false"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="End"
+                    android:id="@+id/textViewEnd"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="174dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Loading..."
+                    android:id="@+id/PressLabel"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"/>
+                <ProgressBar
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/progressBar"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

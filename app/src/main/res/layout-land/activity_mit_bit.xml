@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_mit_bit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context="ecg.android.tool.ecg.MitBitActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="@dimen/feature_horizontal_margin"
+        android:layout_marginRight="@dimen/feature_horizontal_margin"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/Playbtn"
+            style="@style/Widget.Connect"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:text="@string/action_connect"
+            tools:text="Play" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="@dimen/feature_horizontal_margin"
+        android:layout_marginRight="@dimen/feature_horizontal_margin"
+        android:orientation="vertical">
+
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="40dp" />
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true">
+
+                <ecg.android.tool.widget.TrebuchetTextView
+                    android:id="@+id/text_hrs_position"
+
+                    android:layout_width="32dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/connection" />
+
+                <TextView
+                    android:id="@+id/text_hrs"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="45dp"
+                    android:ellipsize="end"
+                    android:freezesText="true"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="75dp"
+                    android:gravity="center"
+                    android:text="bpm"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true">
+
+                <Spinner
+                    android:id="@+id/spinnerAF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:dropDownWidth="0dp"
+                    android:entries="@array/planets_array"
+                    android:maxWidth="60dp"
+                    android:minWidth="60dp"
+                    android:textColor="@android:color/background_dark"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/textViewAF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="AF"
+                    android:textColor="@color/RedColor"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/text_af"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="2dp"
+                    android:text="0"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="180dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_centerHorizontal="true"
+                    android:background="#33B5E5"
+                    android:padding="1dp">
+
+                    <LinearLayout
+                        android:background="#FFFFFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <Spinner
+                            android:id="@+id/spinnerMitbit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/planets_array"
+                            android:maxWidth="60dp"
+                            android:minWidth="60dp"
+                            android:textColor="@android:color/background_dark" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textViewMitbit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="2dp"
+                    android:text="MitBit Files"
+                    android:textSize="18dp"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relativeLayout4"
+        android:layout_alignEnd="@+id/relativeLayout3"
+        android:layout_marginBottom="57dp"
+        android:layout_marginEnd="65dp"
+        android:text="N : Normal"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relativeLayout4"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginBottom="25dp"
+        android:text="AF: Atrial Fibrillation"
+        android:textSize="12sp" />
+</RelativeLayout>

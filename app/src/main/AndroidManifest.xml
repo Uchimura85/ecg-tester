@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="no.nordicsemi.android.nrftoolbox"
+    android:installLocation="auto">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="no.nordicsemi.android.LOG" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <activity
+            android:name="ecg.android.tool.ecg.MenuActivity"
+            android:label="@string/hrs_feature_title"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="ecg.android.tool.SplashscreenActivity"
+            android:label="@string/app_name"
+            android:keepScreenOn="true"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="application/vnd.no.nordicsemi.type.app" />
+                <data android:mimeType="application/vnd.no.nordicsemi.type.address" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="ecg.android.tool.FeaturesActivity"
+            android:label="@string/app_name"
+            android:keepScreenOn="true"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.TranslucentStatusBar" />
+
+        <!-- Template plugin activities -->
+        <!-- Remember to add your plug-in Activities to the Android Manifest file. -->
+        <!-- Plug-in activities -->
+        <activity
+            android:name="ecg.android.tool.dfu.DfuActivity"
+            android:keepScreenOn="true"
+            android:icon="@drawable/ic_dfu_feature"
+            android:label="@string/dfu_feature_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="no.nordicsemi.android.nrftoolbox.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="ecg.android.tool.dfu.settings.SettingsActivity"
+            android:keepScreenOn="true"
+            android:label="@string/dfu_settings_title" />
+        <activity
+            android:name="ecg.android.tool.dfu.NotificationActivity"
+            android:label="@string/dfu_feature_title" />
+        <activity
+            android:name="ecg.android.tool.ecg.ECGActivity"
+            android:icon="@drawable/ic_hrs_feature"
+            android:label="@string/hrs_feature_title"
+            android:keepScreenOn="true"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="no.nordicsemi.android.nrftoolbox.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="ecg.android.tool.dfu.DfuService"
+            android:exported="true"
+            android:label="@string/dfu_service_title">
+            <intent-filter>
+                <action android:name="no.nordicsemi.android.action.DFU_UPLOAD" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="ecg.android.tool.dfu.DfuInitiatorActivity"
+            android:label="@string/dfu_service_title"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.Translucent">
+            <intent-filter>
+                <action android:name="no.nordicsemi.android.action.DFU_UPLOAD" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="ecg.android.tool.ecg.AnalyzeActivity"
+            android:label="@string/hrs_feature_title"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="no.nordicsemi.android.nrftoolbox.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="ecg.android.tool.ecg.MitBitActivity"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="no.nordicsemi.android.nrftoolbox.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

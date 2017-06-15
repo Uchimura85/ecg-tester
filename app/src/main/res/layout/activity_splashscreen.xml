@@ -1,0 +1,16 @@
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_height="match_parent"
+	tools:context="ecg.android.tool.SplashscreenActivity"
+	android:layout_width="wrap_content">
+
+	<ImageView
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_gravity="center"
+		android:layout_marginBottom="0dp"
+		android:scaleType="fitXY"
+		android:src="@drawable/ecg_logo"/>
+
+</merge>

@@ -1,0 +1,232 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+    android:background="#FFFFFF"
+	tools:context="ecg.android.tool.ecg.ECGActivity">
+
+	<include
+		android:id="@+id/toolbar_actionbar"
+		layout="@layout/toolbar"
+		android:visibility="gone" />
+
+	<ecg.android.tool.widget.ForegroundRelativeLayout
+		style="@style/HeaderShadow"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<!-- The size of text below must be fixed, therefore dp are used instead of sp -->
+		<RelativeLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/relativeLayout">
+
+			<RelativeLayout
+				android:layout_width="40dp"
+				android:layout_height="25dp"
+				android:layout_marginTop="@dimen/feature_device_name_margin_top"
+				android:layout_alignParentStart="true"
+				android:layout_marginStart="30dp"
+				android:id="@+id/relativeLayout5">
+
+			</RelativeLayout>
+
+
+			<ecg.android.tool.widget.TrebuchetTextView
+				android:id="@+id/device_name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:ellipsize="end"
+				android:freezesText="true"
+				android:maxLines="1"
+				android:text="ECG"
+				android:textAllCaps="false"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_marginTop="10dp"
+				android:layout_centerHorizontal="true" />
+
+			<ImageView
+				android:id="@+id/image_hrs_position"
+				android:background="@drawable/disconnection"
+				android:layout_alignParentEnd="true"
+				android:layout_marginEnd="30dp"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:contentDescription="@string/hrs_position" />
+
+
+			<ecg.android.tool.widget.TrebuchetTextView
+				android:id="@+id/text_battery_level"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="30dp"
+				android:layout_marginTop="10dp"
+				android:ellipsize="end"
+				android:freezesText="true"
+				android:maxLines="1"
+				android:text=""
+				android:textSize="18sp" />
+
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="@dimen/feature_horizontal_margin"
+			android:layout_marginRight="@dimen/feature_horizontal_margin"
+			android:baselineAligned="false"
+			android:orientation="horizontal"
+			android:layout_alignParentBottom="true"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="40dp"
+			android:id="@+id/relativeLayout2">
+
+			<!-- Application section -->
+
+			<com.github.mikephil.charting.charts.LineChart
+			android:id="@+id/chart1"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_marginBottom="45dp"/>
+			<!--<com.github.gcacace.signaturepad.views.SignaturePad-->
+				<!--android:layout_width="fill_parent"-->
+				<!--android:layout_height="fill_parent"-->
+
+				<!--android:layout_marginBottom="45dp"-->
+				<!--android:id="@+id/signature_pad" />-->
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:orientation="vertical"
+				android:layout_alignParentEnd="true"
+				android:layout_marginEnd="14dp"
+				android:layout_width="60dp"
+				android:layout_marginTop="10dp"
+				android:id="@+id/linearLayout">
+
+				<ecg.android.tool.widget.TrebuchetTextView
+					android:id="@+id/text_hrs_value"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:freezesText="true"
+					android:maxLines="1"
+					android:text="@string/not_available_value"
+					android:textSize="25sp" />
+
+				<ecg.android.tool.widget.TrebuchetTextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/hrs_value_unit"
+					android:textSize="16sp" />
+
+				<ecg.android.tool.widget.TrebuchetTextView
+					android:id="@+id/text_hrs_position"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:freezesText="true"
+					android:maxLines="1"
+					android:text="@string/not_available"
+					android:visibility="gone"
+					android:textSize="20sp" />
+
+
+				<ecg.android.tool.widget.TrebuchetTextView
+					android:id="@+id/text_hrs_position_label"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/hrs_position_label"
+					android:visibility="invisible"
+					android:textSize="16sp" />
+			</LinearLayout>
+
+			<!-- GRAPH section -->
+
+			<FrameLayout
+				android:id="@+id/graph_hrs"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:visibility="gone"
+				android:layout_marginStart="40dp" />
+
+			<Button
+				android:id="@+id/action_connect"
+				style="@style/Widget.Connect"
+				android:onClick="onConnectClicked"
+				android:text="@string/action_connect"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="10dp"
+				android:layout_width="wrap_content"
+				tools:text="@string/action_connect"
+				android:layout_alignParentBottom="true"
+				android:layout_centerHorizontal="true"
+				android:layout_height="35dp" />
+
+
+
+
+		</RelativeLayout>
+		<TextView
+			android:id="@+id/textView_accx"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignStart="@+id/relativeLayout2"
+			android:layout_below="@+id/relativeLayout"
+			android:layout_marginStart="80dp"
+			android:layout_marginTop="12dp"
+			android:text="" />
+
+		<TextView
+			android:id="@+id/textView_accY"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="21dp"
+			android:text=""
+			android:layout_below="@+id/textView_accx"
+			android:layout_alignStart="@+id/textView_accx" />
+
+		<TextView
+			android:id="@+id/textView_accZ"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/textView_accY"
+			android:layout_below="@+id/textView_accY"
+			android:layout_marginTop="15dp"
+			android:text="" />
+		<TextView
+			android:id="@+id/tv_debug"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="debug:"
+			android:layout_alignParentBottom="true"
+			android:layout_alignStart="@+id/relativeLayout2"
+			android:layout_marginStart="40dp"
+			android:textSize="12sp"
+			android:layout_marginBottom="65dp" />
+		<TextView
+			android:id="@+id/textView6"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="11dp"
+			android:text="N : Normal"
+			android:textSize="12sp"
+			android:layout_above="@+id/textView5"
+			android:layout_alignStart="@+id/textView5" />
+		<TextView
+			android:id="@+id/textView5"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+            android:layout_marginEnd="21dp"
+			android:text="AF: Atrial Fibrillation"
+            android:textSize="12sp"
+			android:layout_marginRight="25dp"
+            android:layout_above="@+id/tv_debug"
+            android:layout_alignEnd="@+id/relativeLayout2" />
+
+	</ecg.android.tool.widget.ForegroundRelativeLayout>
+
+</LinearLayout>

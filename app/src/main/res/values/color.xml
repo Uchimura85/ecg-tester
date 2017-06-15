@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resources>
+    <color name="featureTitleColor">#939597</color>
+    <color name="actionBarColor">#009CDE</color>
+    <color name="RedColor">#FF0000</color>
+    <color name="actionBarColorDark">#02336B</color>
+    <color name="backgroundColor">#E6E7E8</color>
+    <color name="headerBackgroundColor">#009ada</color>
+    <color name="headerTextColor">#FFFFFF</color>
+    <color name="actionBarMenuTextColor">#FFFFFF</color>
+
+
+    <color name="darkGray">#AAABAF</color>
+</resources>

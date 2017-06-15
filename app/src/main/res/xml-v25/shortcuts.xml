@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+	<shortcut
+		android:shortcutId="shortcut_dfu"
+		android:enabled="true"
+		android:icon="@mipmap/ic_shortcut_dfu"
+		android:shortcutShortLabel="@string/shortcut_dfu_short"
+		android:shortcutLongLabel="@string/shortcut_dfu_long"
+		android:shortcutDisabledMessage="@string/shortcut_dfu_short">
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:targetPackage="no.ecg.android.tool"
+			android:targetClass="ecg.android.tool.FeaturesActivity" />
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:targetPackage="no.ecg.android.tool"
+			android:targetClass="ecg.android.tool.dfu.DfuActivity" />
+		<categories android:name="android.shortcut.conversation" />
+	</shortcut>
+	<shortcut
+		android:shortcutId="shortcut_uart"
+		android:enabled="true"
+		android:icon="@mipmap/ic_shortcut_uart"
+		android:shortcutShortLabel="@string/shortcut_uart_short"
+		android:shortcutLongLabel="@string/shortcut_uart_long"
+		android:shortcutDisabledMessage="@string/shortcut_uart_short">
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:targetPackage="no.ecg.android.tool"
+			android:targetClass="ecg.android.tool.FeaturesActivity" />
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:targetPackage="no.ecg.android.tool"
+			android:targetClass="no.ecg.android.tool.uart.UARTActivity" />
+		<categories android:name="android.shortcut.conversation" />
+	</shortcut>
+	<!-- Specify more shortcuts here. -->
+</shortcuts>
